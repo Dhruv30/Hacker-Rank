@@ -2,31 +2,48 @@
 
 using namespace std;
 
+void sort(long long int ar[5]);
+
 int main(){
-    int lowestSum = 1E20, greatestSum = 0;
-    int ar[5] = {0};
+    long long int arr[5] = {0};
     
     for(int i = 0; i < 5; i ++){
-        cin >> ar[i];
+        cin >> arr[i];
     }
     
-    for (int dontCount = 0; dontCount < 5; dontCount ++){
-        
-        int tempSum = 0;
-        
-        for (int index = 0; index < 5; index ++){
-            if (index != dontCount){
-                tempSum += ar[index];
+    sort(arr);
+
+    long long int sum = 0;
+
+    for (int index = 0; index < 5; index ++){
+        sum += arr[index];
+    }
+
+    long long int lowestSum = sum - arr[4];
+    long long int highestSum = sum - arr[0];
+
+    cout << lowestSum << " " << highestSum;
+
+
+}
+
+void sort(long long int ar[5]){
+    
+    for(int pass = 0; pass < 4; pass ++)
+    {
+        long long int minNum = ar[pass];
+        int minIndex = pass;
+
+        for(int index = pass + 1; index < 5; index ++)
+        {
+            if (ar[index] < minNum)
+            {
+                minNum = ar[index];
+                minIndex = index;
             }
-        
         }
-         if (tempSum > greatestSum) {
-                greatestSum = tempSum;
-            }
-            if (tempSum < lowestSum){
-                lowestSum = tempSum;
-            }
+
+        ar[minIndex] = ar[pass];
+        ar[pass] = minNum;
     }
-    
-    cout << lowestSum << " " << greatestSum;
 }
